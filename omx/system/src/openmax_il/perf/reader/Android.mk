@@ -24,7 +24,7 @@ endif
 LOCAL_C_INCLUDES := \
 	$(TI_OMX_SYSTEM)/perf/inc \
 	$(TI_OMX_INCLUDES) \
-	$(ANDROID_BUILD_TOP)bionic/libc/include \
+	bionic/libc/include \
 
 LOCAL_SHARED_LIBRARIES := \
 	libdl \

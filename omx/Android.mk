@@ -1,21 +1,32 @@
 ifeq ($(HARDWARE_OMX),true)
 
 LOCAL_PATH := $(call my-dir)
+TI_OMX_TOP := $(LOCAL_PATH)
 
 include $(CLEAR_VARS)
 
-TI_BRIDGE_TOP := $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/dspbridge
+TI_OMAP_TOP := $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat
+TI_BRIDGE_TOP := $(TI_OMAP_TOP)/dspbridge
 TI_BRIDGE_INCLUDES := $(TI_BRIDGE_TOP)/libbridge/inc
 
-OMX_DEBUG ?= 1
-RESOURCE_MANAGER_ENABLED ?= 0
-ENABLE_RMPM_STUB ?= 0
-DVFS_ENABLED ?= 0
-PERF_INSTRUMENTATION ?= 0
-PERF_CUSTOMIZABLE ?= 1
-PERF_READER ?= 1
+OMX_DEBUG ?= 0
+RESOURCE_MANAGER_ENABLED := 0
+ENABLE_RMPM_STUB := 0
+DVFS_ENABLED := 0
+PERF_INSTRUMENTATION := 0
+PERF_CUSTOMIZABLE := 1
+PERF_READER := 1
 
-BUILD_JPEG_DECODER ?= 0
+BUILD_JPEG_DECODER ?= 1
+BUILD_JPEG_ENCODER ?= 1
+
+# Video pre/post processor
+BUILD_VPP ?= 1
+
+ifeq ($(OMX_DEBUG),1)
+BUILD_JPEG_DEC_TEST ?= 1
+BUILD_VPP_TEST ?=1
+endif
 
 TI_OMX_CFLAGS := -Wall -fpic -pipe -finline-functions -DSTATIC_TABLE -O0
 
@@ -31,7 +42,7 @@ BUILD_AMRNB_DECODER := 1
 BUILD_AMRWB_DECODER := 1
 endif
 
-TI_OMX_TOP := $(LOCAL_PATH)
+TI_OMX_TOP ?= $(LOCAL_PATH)
 TI_OMX_SYSTEM := $(TI_OMX_TOP)/system/src/openmax_il
 TI_OMX_VIDEO := $(TI_OMX_TOP)/video/src/openmax_il
 TI_OMX_AUDIO := $(TI_OMX_TOP)/audio/src/openmax_il
@@ -93,6 +104,15 @@ ifeq ($(PERF_READER),1)
 #include $(TI_OMX_SYSTEM)/perf/reader/Android.mk
 endif
 
+#ittiam components (test)
+ifeq ($(ITTIAM_AUDIO),1)
+TI_OMX_CFLAGS += -DBUILD_WITH_ITTIAM_AUDIO
+endif
+
+ifeq ($(ITTIAM_VIDEO),1)
+TI_OMX_CFLAGS += -DBUILD_WITH_ITTIAM_DIVX
+endif
+
 #call to common omx & system components
 include $(TI_OMX_SYSTEM)/omx_core/src/Android.mk
 include $(TI_OMX_SYSTEM)/lcml/src/Android.mk
@@ -131,6 +151,8 @@ include $(TI_OMX_AUDIO)/g729_dec/src/Android.mk
 include $(TI_OMX_AUDIO)/g729_dec/tests/Android.mk
 include $(TI_OMX_AUDIO)/g729_enc/src/Android.mk
 include $(TI_OMX_AUDIO)/g729_enc/tests/Android.mk
+include $(TI_OMX_AUDIO)/ilbc_dec/src/Android.mk
+include $(TI_OMX_AUDIO)/ilbc_enc/src/Android.mk
 
 #call to video
 include $(TI_OMX_VIDEO)/video_decode/Android.mk
