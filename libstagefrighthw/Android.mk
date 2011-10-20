@@ -1,4 +1,5 @@
 LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
@@ -9,16 +10,16 @@ LOCAL_SRC_FILES := \
 LOCAL_CFLAGS := $(PV_CFLAGS_MINUS_VISIBILITY)
 
 LOCAL_C_INCLUDES:= \
-        $(TOP)/frameworks/base/include/media/stagefright/openmax \
-        $(TOP)/hardware/ti/omap3-compat/liboverlay
+    $(ANDROID_BUILD_TOP)/frameworks/base/include/media/stagefright/openmax \
+    $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/liboverlay
 
-LOCAL_SHARED_LIBRARIES :=       \
-        libbinder               \
-        libutils                \
-        libcutils               \
-        libui                   \
-        libdl					\
-        libsurfaceflinger_client
+LOCAL_SHARED_LIBRARIES := \
+    libbinder \
+    libutils \
+    libcutils \
+    libui \
+    libdl \
+    libsurfaceflinger_client
 
 LOCAL_MODULE := libstagefrighthw
 
