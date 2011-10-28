@@ -4,11 +4,13 @@ ifdef BOARD_USES_TI_CAMERA_HAL
 
 LOCAL_PATH := $(call my-dir)
 
-TI_OMX_TOP    ?= $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/omx
+TI_OMAP_TOP   := $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat
+
+TI_OMX_TOP    ?= $(TI_OMAP_TOP)/omx
 TI_OMX_IMAGE  ?= $(TI_OMX_TOP)/image/src/openmax_il
 TI_OMX_SYSTEM ?= $(TI_OMX_TOP)/system/src/openmax_il
 
-TI_BRIDGE_TOP := $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/dspbridge
+TI_BRIDGE_TOP := $(TI_OMAP_TOP)/dspbridge
 TI_BRIDGE_INCLUDES := $(TI_BRIDGE_TOP)/libbridge/inc
 
 include $(CLEAR_VARS)
@@ -30,7 +32,7 @@ LOCAL_SHARED_LIBRARIES:= \
 LOCAL_C_INCLUDES += \
     $(ANDROID_BUILD_TOP)/frameworks/base/include/camera \
     $(ANDROID_BUILD_TOP)/frameworks/base/include/binder \
-    $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/liboverlay
+    $(TI_OMAP_TOP)/liboverlay
 
 LOCAL_CFLAGS += -fno-short-enums
 
@@ -72,8 +74,8 @@ endif
 ifdef FW3A
 
 LOCAL_C_INCLUDES += \
-    $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/fw3A/include \
-    $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/fw3A/include/fw/api/linux
+    $(TI_OMAP_TOP)/fw3A/include \
+    $(TI_OMAP_TOP)/fw3A/include/fw/api/linux
 
 LOCAL_SHARED_LIBRARIES += \
     libdl \
@@ -87,8 +89,8 @@ endif
 ifdef IMAGE_PROCESSING_PIPELINE
 
 LOCAL_C_INCLUDES += \
-    $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/mm_isp/ipp/inc \
-    $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat/mm_isp/capl/inc \
+    $(TI_OMAP_TOP)/mm_isp/ipp/inc \
+    $(TI_OMAP_TOP)/mm_isp/capl/inc \
 
 LOCAL_SHARED_LIBRARIES += \
     libcapl \
