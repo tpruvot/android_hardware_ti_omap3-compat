@@ -4,7 +4,7 @@ ifdef BOARD_USES_TI_CAMERA_HAL
 
 LOCAL_PATH := $(call my-dir)
 
-TI_OMAP_TOP   := $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat
+TI_OMAP_TOP   := $(ANDROID_BUILD_TOP)/hardware/ti/omap3
 
 TI_OMX_TOP    ?= $(TI_OMAP_TOP)/omx
 TI_OMX_IMAGE  ?= $(TI_OMX_TOP)/image/src/openmax_il

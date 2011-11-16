@@ -9,11 +9,11 @@ LOCAL_SRC_FILES:= \
 	src/OMX_JpegEncoder.c \
 
 TOP ?= $(ANDROID_BUILD_TOP)
-TI_OMX_TOP    ?= $(TOP)/hardware/ti/omap3-compat/omx
+TI_OMX_TOP    ?= $(TOP)/hardware/ti/omap3/omx
 TI_OMX_IMAGE  ?= $(TI_OMX_TOP)/image/src/openmax_il
 TI_OMX_SYSTEM ?= $(TI_OMX_TOP)/system/src/openmax_il
 
-TI_BRIDGE_TOP      ?= $(TOP)/hardware/ti/omap3-compat/dspbridge
+TI_BRIDGE_TOP      ?= $(TOP)/hardware/ti/omap3/dspbridge
 TI_BRIDGE_INCLUDES ?= $(TI_BRIDGE_TOP)/libbridge/inc
 
 TI_OMX_COMP_C_INCLUDES ?= \

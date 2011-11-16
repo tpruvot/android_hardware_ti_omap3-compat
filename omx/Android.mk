@@ -5,7 +5,7 @@ TI_OMX_TOP := $(LOCAL_PATH)
 
 include $(CLEAR_VARS)
 
-TI_OMAP_TOP := $(ANDROID_BUILD_TOP)/hardware/ti/omap3-compat
+TI_OMAP_TOP := $(ANDROID_BUILD_TOP)/hardware/ti/omap3
 TI_BRIDGE_TOP := $(TI_OMAP_TOP)/dspbridge
 TI_BRIDGE_INCLUDES := $(TI_BRIDGE_TOP)/libbridge/inc
 

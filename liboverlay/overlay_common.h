@@ -21,8 +21,8 @@
 #ifndef OVERLAY_COMMON_H_
 #define OVERLAY_COMMON_H_
 
-#include <hardware/overlay.h>
-#include "v4l2_utils.h"
+//#include <hardware/overlay.h>
+//#include "v4l2_utils.h"
 
 #define NUM_BUFFERS_TO_BE_QUEUED_FOR_OPTIMAL_PERFORMANCE    3
 #define NUM_OVERLAY_BUFFERS_REQUESTED  (6)
