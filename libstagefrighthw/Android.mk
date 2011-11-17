@@ -1,3 +1,4 @@
+ifeq ($(filter 4.0.1%,$(PLATFORM_VERSION)),)
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -25,3 +26,4 @@ LOCAL_MODULE := libstagefrighthw
 
 include $(BUILD_SHARED_LIBRARY)
 
+endif #!ICS
