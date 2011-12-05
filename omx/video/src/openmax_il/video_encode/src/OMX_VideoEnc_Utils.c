@@ -3623,7 +3623,7 @@ OMX_ERRORTYPE OMX_VIDENC_InitDSP_Mpeg4Enc(VIDENC_COMPONENT_PRIVATE* pComponentPr
    /* set run-time frame and bit rates to create-time values */
     pComponentPrivate->nTargetFrameRate       = pCreatePhaseArgs->ucFrameRate;
     pComponentPrivate->nPrevTargetFrameRate   = 0;
-    pComponentPrivate->nTargetBitRate         = pCreatePhaseArgs->ulTargetBitRate; 
+    pComponentPrivate->nTargetBitRate         = pCreatePhaseArgs->ulTargetBitRate;
 
      if (pVidParamBitrate->eControlRate == OMX_Video_ControlRateConstant)
     {
@@ -4161,7 +4161,7 @@ void CalculateBufferSize(OMX_PARAM_PORTDEFINITIONTYPE* pCompPort, VIDENC_COMPONE
         if (pCompPort->format.video.eColorFormat == OMX_COLOR_FormatYUV420Planar)
         {
             pCompPort->nBufferSize = pCompPort->format.video.nFrameWidth *
-                                    pCompPort->format.video.nFrameHeight * 1.5;
+                                     pCompPort->format.video.nFrameHeight * 1.5;
         }
         else if (pCompPort->format.video.eColorFormat == OMX_COLOR_FormatYCbYCr)
         {
@@ -4170,7 +4170,7 @@ void CalculateBufferSize(OMX_PARAM_PORTDEFINITIONTYPE* pCompPort, VIDENC_COMPONE
         }
         else {
             pCompPort->nBufferSize = pCompPort->format.video.nFrameWidth *
-                                    pCompPort->format.video.nFrameHeight * 2;
+                                     pCompPort->format.video.nFrameHeight * 2;
         }
     }
     else {
@@ -4181,7 +4181,7 @@ void CalculateBufferSize(OMX_PARAM_PORTDEFINITIONTYPE* pCompPort, VIDENC_COMPONE
         else
         {/*coding Mpeg4 or H263*/
             pCompPort->nBufferSize = pCompPort->format.video.nFrameWidth *
-                                    pCompPort->format.video.nFrameHeight / 2;
+                                     pCompPort->format.video.nFrameHeight / 2;
         }
         pCompPort->nBufferSize += 256;
     }
@@ -4208,7 +4208,7 @@ OMX_U32 GetMaxAVCBufferSize(OMX_U32 width, OMX_U32 height)
         MaxCPB = 4000;
     }
     else if(nMacroBlocks <= 1620) {
-        /* Note - Max bitrate in this case is assumed to max 4 Mbps to limit the buffer size 
+        /* Note - Max bitrate in this case is assumed to max 4 Mbps to limit the buffer size
            If bitrate in this particular case could be higher than 4 Mbps, increase MxCPB value */
         MaxCPB = 4000;
     }
