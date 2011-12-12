@@ -20,11 +20,13 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <cutils/log.h>
-#include <hardware/overlay.h>
 #include <linux/videodev.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include "v4l2_utils.h"
+
+#include <hardware/hwcomposer.h>
+#include "overlay.h"
 
 #define LOG_FUNCTION_NAME    LOGV("%s: %s",  __FILE__, __FUNCTION__);
 

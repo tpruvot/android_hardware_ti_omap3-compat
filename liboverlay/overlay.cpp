@@ -18,7 +18,9 @@
 #define LOG_TAG "TIOverlay"
 
 #include <hardware/hardware.h>
-#include <hardware/overlay.h>
+#include <hardware/hwcomposer.h>
+#include "overlay.h"
+
 
 extern "C" {
 #include "v4l2_utils.h"
