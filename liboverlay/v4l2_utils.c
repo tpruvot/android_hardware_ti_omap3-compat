@@ -25,7 +25,6 @@
 #include <sys/mman.h>
 #include "v4l2_utils.h"
 
-#include <hardware/hwcomposer.h>
 #include "overlay.h"
 
 #ifdef USE_CID_ROTATE_34
