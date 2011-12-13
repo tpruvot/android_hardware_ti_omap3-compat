@@ -41,14 +41,14 @@ extern "C" {
 
 #define LOG_FUNCTION_NAME LOGV(" %s %s",  __FILE__, __FUNCTION__)
 
-#define NUM_OVERLAY_BUFFERS_REQUESTED  (8)
+#define NUM_OVERLAY_BUFFERS_REQUESTED  (2)
 #define SHARED_DATA_MARKER             (0x68759746) // OVRLYSHM on phone keypad
 
 /* These values should come from Surface Flinger */
 #define LCD_WIDTH 480
 #define LCD_HEIGHT 854
 
-#define CACHEABLE_BUFFERS 0x1
+#define CACHEABLE_BUFFERS 0x0
 
 #define ALL_BUFFERS_FLUSHED -66 //shared with Camera/Video Playback HAL
 
