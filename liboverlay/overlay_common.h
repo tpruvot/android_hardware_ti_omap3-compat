@@ -24,8 +24,8 @@
 //#include <hardware/overlay.h>
 //#include "v4l2_utils.h"
 
-#define NUM_BUFFERS_TO_BE_QUEUED_FOR_OPTIMAL_PERFORMANCE    3
-#define NUM_OVERLAY_BUFFERS_REQUESTED  (6)
+#define NUM_BUFFERS_TO_BE_QUEUED_FOR_OPTIMAL_PERFORMANCE    2
+#define NUM_OVERLAY_BUFFERS_REQUESTED  (2)
 /* These values should come from Surface Flinger */
 #define LCD_WIDTH 864
 #define LCD_HEIGHT 480
