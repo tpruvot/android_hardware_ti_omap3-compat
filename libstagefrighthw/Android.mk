@@ -1,18 +1,18 @@
-ifeq ($(filter 4.0.1%,$(PLATFORM_VERSION)),)
+#ifeq ($(filter 4.0.1%,$(PLATFORM_VERSION)),)
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    stagefright_overlay_output.cpp \
-    TIHardwareRenderer.cpp \
     TIOMXPlugin.cpp
+    #stagefright_overlay_output.cpp \
+    #TIHardwareRenderer.cpp \
 
 LOCAL_CFLAGS := $(PV_CFLAGS_MINUS_VISIBILITY)
 
 LOCAL_C_INCLUDES:= \
     $(ANDROID_BUILD_TOP)/frameworks/base/include/media/stagefright/openmax \
-    $(ANDROID_BUILD_TOP)/hardware/ti/omap3/liboverlay
+#    $(ANDROID_BUILD_TOP)/hardware/ti/omap3/liboverlay
 
 LOCAL_SHARED_LIBRARIES := \
     libbinder \
@@ -26,4 +26,4 @@ LOCAL_MODULE := libstagefrighthw
 
 include $(BUILD_SHARED_LIBRARY)
 
-endif #!ICS
+#endif #!ICS
