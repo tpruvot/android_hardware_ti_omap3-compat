@@ -797,8 +797,8 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
     if (pComponentPrivate->eState == OMX_StateInvalid) {
         OMX_CONF_SET_ERROR_BAIL(eError, OMX_ErrorIncorrectStateOperation);
     }
-    if( nParamIndex == OMX_TI_IndexAndroidNativeBufferUsage) {
-		pUsage->nUsage = GRALLOC_USAGE_HW_TEXTURE;
+    if (nParamIndex == OMX_TI_IndexAndroidNativeBufferUsage) {
+        pUsage->nUsage = GRALLOC_USAGE_HW_TEXTURE;
     }
 
     switch (nParamIndex) {
@@ -3941,12 +3941,12 @@ EXIT:
 
 /*-------------------------------------------------------------------*/
 /**
-  * VIDDEC_GetExtensionIndex() 
+  * VIDDEC_GetExtensionIndex()
   *
-  * 
+  *
   *
   * @retval OMX_ErrorNone                    Successful operation.
-  *         OMX_ErrorBadParameter            Invalid operation.    
+  *         OMX_ErrorBadParameter            Invalid operation.
   *         OMX_ErrorIncorrectStateOperation If called when port is disabled.
   **/
 /*-------------------------------------------------------------------*/
@@ -3956,10 +3956,10 @@ static OMX_ERRORTYPE VIDDEC_GetExtensionIndex(OMX_IN OMX_HANDLETYPE hComponent, 
 
     OMX_ERRORTYPE eError = OMX_ErrorUndefined;
 
-	if (strcmp(cParameterName, "OMX.google.android.index.getAndroidNativeBufferUsage") == 0)
-	{
-		*pIndexType = (OMX_INDEXTYPE) OMX_TI_IndexAndroidNativeBufferUsage;
-	}
+    if (strcmp(cParameterName, "OMX.google.android.index.getAndroidNativeBufferUsage") == 0)
+    {
+        *pIndexType = (OMX_INDEXTYPE) OMX_TI_IndexAndroidNativeBufferUsage;
+    }
 
     OMX_CONF_CHECK_CMD(hComponent, OMX_TRUE, OMX_TRUE);
     for(nIndex = 0; nIndex < sizeof(sVideoDecCustomParams)/sizeof(VIDDEC_CUSTOM_PARAM); nIndex++) {
@@ -3976,12 +3976,12 @@ EXIT:
 #ifdef KHRONOS_1_1
 /*-------------------------------------------------------------------*/
 /**
-  * ComponentRoleEnum() 
+  * ComponentRoleEnum()
   *
-  * 
+  *
   *
   * @retval OMX_ErrorNone                    Successful operation.
-  *         OMX_ErrorBadParameter            Invalid operation.    
+  *         OMX_ErrorBadParameter            Invalid operation.
   *         OMX_ErrorIncorrectStateOperation If called when port is disabled.
   **/
 /*-------------------------------------------------------------------*/
