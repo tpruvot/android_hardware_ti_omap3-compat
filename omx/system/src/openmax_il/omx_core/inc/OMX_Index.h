@@ -222,6 +222,7 @@ typedef enum OMX_INDEXTYPE {
     OMX_IndexConfigOtherPower,              /**< reference: OMX_OTHER_CONFIG_POWERTYPE */
     OMX_IndexConfigOtherStats,              /**< reference: OMX_OTHER_CONFIG_STATSTYPE */
 
+    OMX_TI_IndexAndroidNativeBufferUsage,          /**< reference: OMX_TI_IndexAndroidNativeBufferUsage */
 
     /* Reserved Time range */
     OMX_IndexTimeStartUnused = 0x09000000,

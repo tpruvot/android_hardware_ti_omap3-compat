@@ -69,13 +69,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <dbapi.h>
+#include <OMX_IVCommon.h>
 #include <OMX_Component.h>
 #include "OMX_VideoDecoder.h"
 #include "OMX_VideoDec_Utils.h"
 #include "OMX_VideoDec_DSP.h"
 #include "OMX_VideoDec_Thread.h"
 #include "OMX_VidDec_CustomCmd.h"
-
+#include <hardware/gralloc.h>
+#include <hardware/hardware.h>
 /* For PPM fps measurements */
 static int mDebugFps = 0;
 
@@ -98,7 +100,6 @@ extern OMX_ERRORTYPE VIDDEC_HandleCommandFlush(VIDDEC_COMPONENT_PRIVATE *pCompon
 extern OMX_ERRORTYPE VIDDEC_Load_Defaults (VIDDEC_COMPONENT_PRIVATE* pComponentPrivate, OMX_S32 nPassing);
 extern OMX_ERRORTYPE IncrementCount (OMX_U8 * pCounter, pthread_mutex_t *pMutex);
 extern OMX_ERRORTYPE DecrementCount (OMX_U8 * pCounter, pthread_mutex_t *pMutex);
-
 /*******************************************************************************
 *  PUBLIC DECLARATIONS Defined here, used elsewhere
 *******************************************************************************/
@@ -784,6 +785,7 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
     OMX_COMPONENTTYPE* pComp = NULL;
     VIDDEC_COMPONENT_PRIVATE* pComponentPrivate = NULL;
     OMX_ERRORTYPE eError = OMX_ErrorNone;
+    OMX_TI_PARAMNATIVEBUFFERUSAGE *pUsage = NULL;
 #ifdef KHRONOS_1_1
     OMX_PARAM_COMPONENTROLETYPE *pRole = NULL;
 #endif
@@ -794,6 +796,9 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
 
     if (pComponentPrivate->eState == OMX_StateInvalid) {
         OMX_CONF_SET_ERROR_BAIL(eError, OMX_ErrorIncorrectStateOperation);
+    }
+    if( nParamIndex == OMX_TI_IndexAndroidNativeBufferUsage) {
+		pUsage->nUsage = GRALLOC_USAGE_HW_TEXTURE;
     }
 
     switch (nParamIndex) {
@@ -875,6 +880,7 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
                   }
                   break;
                   }
+
         case OMX_IndexParamVideoProfileLevelCurrent:
         {
            OMX_VIDEO_PARAM_PROFILELEVELTYPE *pParamProfileLevel = (OMX_VIDEO_PARAM_PROFILELEVELTYPE *)ComponentParameterStructure;
@@ -3947,7 +3953,13 @@ EXIT:
 static OMX_ERRORTYPE VIDDEC_GetExtensionIndex(OMX_IN OMX_HANDLETYPE hComponent, OMX_IN OMX_STRING cParameterName, OMX_OUT OMX_INDEXTYPE* pIndexType)
 {
     int nIndex;
+
     OMX_ERRORTYPE eError = OMX_ErrorUndefined;
+
+	if (strcmp(cParameterName, "OMX.google.android.index.getAndroidNativeBufferUsage") == 0)
+	{
+		*pIndexType = (OMX_INDEXTYPE) OMX_TI_IndexAndroidNativeBufferUsage;
+	}
 
     OMX_CONF_CHECK_CMD(hComponent, OMX_TRUE, OMX_TRUE);
     for(nIndex = 0; nIndex < sizeof(sVideoDecCustomParams)/sizeof(VIDDEC_CUSTOM_PARAM); nIndex++) {

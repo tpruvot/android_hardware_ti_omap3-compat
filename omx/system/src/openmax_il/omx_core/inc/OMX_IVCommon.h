@@ -689,6 +689,21 @@ typedef struct OMX_PARAM_INTERLEAVETYPE {
 } OMX_PARAM_INTERLEAVETYPE;
 
 
+/**
+* A pointer to this struct is passed to OMX_GetParameter when the extension
+* index for the 'OMX.google.android.index.getAndroidNativeBufferUsage'
+* extension is given.
+* The corresponding extension Index is OMX_TI_IndexAndroidNativeBufferUsage.
+* The usage bits returned from this query will be used to allocate the Gralloc
+* buffers that get passed to the useAndroidNativeBuffer command.
+*/
+typedef struct OMX_TI_PARAMNATIVEBUFFERUSAGE {
+    OMX_U32 nSize;
+    OMX_VERSIONTYPE nVersion;
+    OMX_U32 nPortIndex;
+    OMX_U32 nUsage;
+} OMX_TI_PARAMNATIVEBUFFERUSAGE;
+
 /** 
  * Defines the picture effect used for an input picture 
  */
