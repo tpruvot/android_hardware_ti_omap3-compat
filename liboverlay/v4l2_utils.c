@@ -523,7 +523,7 @@ int v4l2_overlay_req_buf(int fd, uint32_t *num_bufs, int cacheable_buffers)
         error(fd, "reqbuf ioctl");
         return ret;
     }
-    LOGI("%d buffers allocated %d requested\n", reqbuf.count, 4);
+    LOGI("%d buffers allocated %d requested\n", reqbuf.count, *num_bufs);
     if (reqbuf.count > *num_bufs) {
         error(fd, "Not enough buffer structs passed to get_buffers");
         return -ENOMEM;
