@@ -3957,17 +3957,21 @@ static OMX_ERRORTYPE VIDDEC_GetExtensionIndex(OMX_IN OMX_HANDLETYPE hComponent, 
 
     OMX_ERRORTYPE eError = OMX_ErrorUndefined;
 
+    OMX_CONF_CHECK_CMD(hComponent, OMX_TRUE, OMX_TRUE);
+
     if (strcmp(cParameterName, "OMX.google.android.index.enableAndroidNativeBuffers") == 0) {
         *pIndexType = (OMX_INDEXTYPE) OMX_TI_IndexEnableNativeBuffers;
+        return OMX_ErrorNone;
     }
-    else if (strcmp(cParameterName, "OMX.google.android.index.useAndroidNativeBuffer") == 0) {
+    if (strcmp(cParameterName, "OMX.google.android.index.useAndroidNativeBuffer") == 0) {
         *pIndexType = (OMX_INDEXTYPE) OMX_TI_IndexUseNativeBuffers;
+        return OMX_ErrorNone;
     }
-    else if (strcmp(cParameterName, "OMX.google.android.index.getAndroidNativeBufferUsage") == 0) {
+    if (strcmp(cParameterName, "OMX.google.android.index.getAndroidNativeBufferUsage") == 0) {
         *pIndexType = (OMX_INDEXTYPE) OMX_TI_IndexAndroidNativeBufferUsage;
+        return OMX_ErrorNone;
     }
 
-    OMX_CONF_CHECK_CMD(hComponent, OMX_TRUE, OMX_TRUE);
     for(nIndex = 0; nIndex < sizeof(sVideoDecCustomParams)/sizeof(VIDDEC_CUSTOM_PARAM); nIndex++) {
         if(strcmp((char *)cParameterName, (char *)&(sVideoDecCustomParams[nIndex].cCustomParamName)) == 0) {
             *pIndexType = sVideoDecCustomParams[nIndex].nCustomParamIndex;
