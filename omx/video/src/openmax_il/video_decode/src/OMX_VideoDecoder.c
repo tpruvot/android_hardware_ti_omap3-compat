@@ -843,6 +843,7 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
         {
             VIDEO_PROFILE_LEVEL_TYPE* pProfileLevel = NULL;
             OMX_U32 nNumberOfProfiles = 0;
+            OMX_S32 nProfileIndex = -1;
             OMX_VIDEO_PARAM_PROFILELEVELTYPE *pParamProfileLevel = (OMX_VIDEO_PARAM_PROFILELEVELTYPE *)ComponentParameterStructure;
             pParamProfileLevel->nPortIndex = pComponentPrivate->pInPortDef->nPortIndex;
 
@@ -865,11 +866,12 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
                     return OMX_ErrorBadParameter;
             }
 
-            if((pParamProfileLevel->nProfileIndex < 0) || (pParamProfileLevel->nProfileIndex >= (nNumberOfProfiles - 1)))
+            nProfileIndex = (OMX_S32) pParamProfileLevel->nProfileIndex;
+            if(nProfileIndex < 0 || nProfileIndex >= (nNumberOfProfiles - 1))
                 return OMX_ErrorBadParameter;
 
             /* Point to table entry based on index */
-            pProfileLevel += pParamProfileLevel->nProfileIndex;
+            pProfileLevel += nProfileIndex;
 
             /* -1 indicates end of table */
             if(pProfileLevel->nProfile != -1) {
