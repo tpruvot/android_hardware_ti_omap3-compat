@@ -695,6 +695,9 @@ typedef struct VIDENC_COMPONENT_PRIVATE
     OMX_U32 FillbufferdoneCount;
     OMX_U32 FillthisbufferCount;
 
+    /* ICS */
+    OMX_BOOL bStoreMetaDataInBuffers;
+
 } VIDENC_COMPONENT_PRIVATE;
 
 typedef OMX_ERRORTYPE (*fpo)(OMX_HANDLETYPE);

@@ -688,21 +688,77 @@ typedef struct OMX_PARAM_INTERLEAVETYPE {
     OMX_U32 nInterleavePortIndex;
 } OMX_PARAM_INTERLEAVETYPE;
 
-
 /**
-* A pointer to this struct is passed to OMX_GetParameter when the extension
-* index for the 'OMX.google.android.index.getAndroidNativeBufferUsage'
-* extension is given.
-* The corresponding extension Index is OMX_TI_IndexAndroidNativeBufferUsage.
-* The usage bits returned from this query will be used to allocate the Gralloc
-* buffers that get passed to the useAndroidNativeBuffer command.
-*/
-typedef struct OMX_TI_PARAMNATIVEBUFFERUSAGE {
+ * Structure to access metadata buffer info needed by proxy to allocate metadat buffers.
+ */
+typedef struct OMX_TI_PARAM_METADATABUFFERINFO {
     OMX_U32 nSize;
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
-    OMX_U32 nUsage;
-} OMX_TI_PARAMNATIVEBUFFERUSAGE;
+    OMX_BOOL bIsMetaDataEnabledOnPort;
+    OMX_U32 nMetaDataSize;
+} OMX_TI_PARAM_METADATABUFFERINFO;
+
+/* ICS extensions
+ * reference: frameworks/base/include/media/stagefright/HardwareAPI.h
+ */
+
+/**
+ * A pointer to this struct is passed to the OMX_SetParameter when the extension
+ * index "OMX.google.android.index.storeMetaDataInBuffers" is given.
+ */
+typedef struct OMX_TI_PARAM_METADATAINBUFFERS {
+    OMX_U32 nSize;
+    OMX_VERSIONTYPE nVersion;
+    OMX_U32 nPortIndex;
+    OMX_BOOL bStoreMetaData;
+} OMX_TI_PARAM_METADATAINBUFFERS;
+
+/**
+ * A pointer to this struct is passed to the OMX_SetParameter when the extension
+ * index for the 'OMX.google.android.index.enableAndroidNativeBuffers' extension
+ * is given.
+ * The corresponding extension Index is OMX_TI_IndexUseNativeBuffers.
+ * This will be used to inform OMX about the presence of gralloc pointers instead
+ * of virtual pointers
+ */
+typedef struct OMX_TI_PARAM_ENABLENATIVEBUFFER {
+    OMX_U32 nSize;
+    OMX_VERSIONTYPE nVersion;
+    OMX_U32 nPortIndex;
+    OMX_BOOL bEnable;
+} OMX_TI_PARAM_ENABLENATIVEBUFFER;
+
+/**
+ * A pointer to this struct is passed to the OMX_SetParameter when the extension
+ * index for the 'OMX.google.android.index.useAndroidNativeBuffer' extension is
+ * given.  This call will only be performed if a prior call was made with the
+ * 'OMX.google.android.index.enableAndroidNativeBuffers' extension index,
+ */
+typedef struct OMX_TI_PARAM_USENATIVEBUFFER {
+    OMX_U32 nSize;
+    OMX_VERSIONTYPE nVersion;
+    OMX_U32 nPortIndex;
+    OMX_PTR pAppPrivate;
+    OMX_BUFFERHEADERTYPE **bufferHeader;
+    OMX_PTR nativeBuffer;
+    //const android::sp<ANativeWindowBuffer>& nativeBuffer;
+} OMX_TI_PARAM_USENATIVEBUFFER;
+
+/**
+ * A pointer to this struct is passed to OMX_GetParameter when the extension
+ * index for the 'OMX.google.android.index.getAndroidNativeBufferUsage'
+ * extension is given.
+ * The corresponding extension Index is OMX_TI_IndexAndroidNativeBufferUsage.
+ * The usage bits returned from this query will be used to allocate the Gralloc
+ * buffers that get passed to the useAndroidNativeBuffer command.
+ */
+typedef struct OMX_TI_PARAM_NATIVEBUFFERUSAGE {
+    OMX_U32 nSize;
+    OMX_VERSIONTYPE nVersion;
+    OMX_U32 nPortIndex;
+    OMX_U32 nUsage; /* OUT */
+} OMX_TI_PARAM_NATIVEBUFFERUSAGE;
 
 /** 
  * Defines the picture effect used for an input picture 
