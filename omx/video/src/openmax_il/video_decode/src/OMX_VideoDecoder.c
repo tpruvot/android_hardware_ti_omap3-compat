@@ -818,7 +818,8 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
             break;
         case OMX_TI_IndexAndroidNativeBufferUsage:
             pUsage = (OMX_TI_PARAM_NATIVEBUFFERUSAGE*) ComponentParameterStructure;
-            pUsage->nUsage = GRALLOC_USAGE_HW_TEXTURE;
+            //pComponentPrivate->nUsage = GRALLOC_USAGE_HW_TEXTURE;
+            pUsage->nUsage = pComponentPrivate->nUsage;
             break;
 #ifdef __STD_COMPONENT__
         case OMX_IndexParamAudioInit:
@@ -1221,6 +1222,8 @@ static OMX_ERRORTYPE VIDDEC_SetParameter (OMX_HANDLETYPE hComp,
 #ifdef KHRONOS_1_1
     OMX_PARAM_COMPONENTROLETYPE *pRole = NULL;
 #endif
+    OMX_TI_PARAM_NATIVEBUFFERUSAGE *pUsage = NULL;
+
     OMX_CONF_CHECK_CMD(hComp, pCompParam, OMX_TRUE);
     pHandle= (OMX_COMPONENTTYPE*)hComp;
     pComponentPrivate = pHandle->pComponentPrivate;
@@ -1231,6 +1234,13 @@ static OMX_ERRORTYPE VIDDEC_SetParameter (OMX_HANDLETYPE hComp,
         OMX_CONF_SET_ERROR_BAIL(eError , OMX_ErrorIncorrectStateOperation);
 
     switch (nParamIndex) {
+
+        case OMX_TI_IndexAndroidNativeBufferUsage:
+            pUsage = (OMX_TI_PARAM_NATIVEBUFFERUSAGE*) pCompParam;
+            pComponentPrivate->nUsage = pUsage->nUsage;
+            LOGV("%s: store usage=0x%08x", __FUNCTION__, pUsage->nUsage);
+            return OMX_ErrorNone;
+
         case OMX_IndexParamVideoPortFormat:
             {
                 OMX_VIDEO_PARAM_PORTFORMATTYPE* pPortFormat = (OMX_VIDEO_PARAM_PORTFORMATTYPE*)pCompParam;

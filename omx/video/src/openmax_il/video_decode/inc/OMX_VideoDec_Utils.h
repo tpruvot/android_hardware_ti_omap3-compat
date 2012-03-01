@@ -1000,6 +1000,9 @@ typedef struct VIDDEC_COMPONENT_PRIVATE
     // Signal first buffer after config data should have EOS flag
     OMX_BOOL firstBufferEos;
 
+    /* ICS GRALLOC Usage */
+    OMX_U32 nUsage;
+
 } VIDDEC_COMPONENT_PRIVATE;
 
 /*****************macro definitions*********************/
