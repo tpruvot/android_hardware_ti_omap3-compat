@@ -297,6 +297,9 @@ OMX_ERRORTYPE OMX_ComponentInit (OMX_HANDLETYPE hComponent)
     pComponentPrivate = (VIDDEC_COMPONENT_PRIVATE*)pHandle->pComponentPrivate;
     pComponentPrivate->nMemUsage[VIDDDEC_Enum_MemLevel0] += nMemUsage;
 
+    pComponentPrivate->nUsage = GRALLOC_USAGE_HW_TEXTURE;
+    pComponentPrivate->bNativeBuffers = false;
+
 #ifdef __PERF_INSTRUMENTATION__
     pComponentPrivate->pPERF = PERF_Create(PERF_FOURS("VD  "),
                                            PERF_ModuleLLMM | PERF_ModuleVideoDecode);
@@ -786,6 +789,7 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
     VIDDEC_COMPONENT_PRIVATE* pComponentPrivate = NULL;
     OMX_ERRORTYPE eError = OMX_ErrorNone;
     OMX_TI_PARAM_NATIVEBUFFERUSAGE *pUsage = NULL;
+    OMX_TI_PARAM_ENABLENATIVEBUFFER *pNative = NULL;
 #ifdef KHRONOS_1_1
     OMX_PARAM_COMPONENTROLETYPE *pRole = NULL;
 #endif
@@ -816,10 +820,15 @@ static OMX_ERRORTYPE VIDDEC_GetParameter (OMX_IN OMX_HANDLETYPE hComponent,
         case OMX_IndexParamVideoInit:
             memcpy(ComponentParameterStructure, pComponentPrivate->pPortParamType, sizeof(OMX_PORT_PARAM_TYPE));
             break;
+        case OMX_TI_IndexEnableNativeBuffers:
+            pNative = (OMX_TI_PARAM_ENABLENATIVEBUFFER*) ComponentParameterStructure;
+            pNative->bEnable = pComponentPrivate->bNativeBuffers;
+            LOGV("%s: native buffers enabled=%d", __FUNCTION__, (int) pNative->bEnable);
+            break;
         case OMX_TI_IndexAndroidNativeBufferUsage:
             pUsage = (OMX_TI_PARAM_NATIVEBUFFERUSAGE*) ComponentParameterStructure;
-            //pComponentPrivate->nUsage = GRALLOC_USAGE_HW_TEXTURE;
             pUsage->nUsage = pComponentPrivate->nUsage;
+            LOGV("%s: nUsage=%08x", __FUNCTION__, pUsage->nUsage);
             break;
 #ifdef __STD_COMPONENT__
         case OMX_IndexParamAudioInit:
@@ -1223,6 +1232,7 @@ static OMX_ERRORTYPE VIDDEC_SetParameter (OMX_HANDLETYPE hComp,
     OMX_PARAM_COMPONENTROLETYPE *pRole = NULL;
 #endif
     OMX_TI_PARAM_NATIVEBUFFERUSAGE *pUsage = NULL;
+    OMX_TI_PARAM_ENABLENATIVEBUFFER *pNative = NULL;
 
     OMX_CONF_CHECK_CMD(hComp, pCompParam, OMX_TRUE);
     pHandle= (OMX_COMPONENTTYPE*)hComp;
@@ -1239,6 +1249,12 @@ static OMX_ERRORTYPE VIDDEC_SetParameter (OMX_HANDLETYPE hComp,
             pUsage = (OMX_TI_PARAM_NATIVEBUFFERUSAGE*) pCompParam;
             pComponentPrivate->nUsage = pUsage->nUsage;
             LOGV("%s: store usage=0x%08x", __FUNCTION__, pUsage->nUsage);
+            return OMX_ErrorNone;
+
+        case OMX_TI_IndexEnableNativeBuffers:
+            pNative = (OMX_TI_PARAM_ENABLENATIVEBUFFER*) pCompParam;
+            pComponentPrivate->bNativeBuffers = pNative->bEnable;
+            LOGV("%s: store use native buffers=%d", __FUNCTION__, (int) pNative->bEnable);
             return OMX_ErrorNone;
 
         case OMX_IndexParamVideoPortFormat:

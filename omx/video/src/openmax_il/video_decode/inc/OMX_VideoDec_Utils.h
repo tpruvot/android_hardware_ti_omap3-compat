@@ -1002,6 +1002,7 @@ typedef struct VIDDEC_COMPONENT_PRIVATE
 
     /* ICS GRALLOC Usage */
     OMX_U32 nUsage;
+    OMX_BOOL bNativeBuffers;
 
 } VIDDEC_COMPONENT_PRIVATE;
 
