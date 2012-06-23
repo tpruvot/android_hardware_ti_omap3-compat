@@ -41,7 +41,7 @@
 #include "binder/MemoryBase.h"
 #include "binder/MemoryHeapBase.h"
 #include <utils/threads.h>
-#include <ui/Overlay.h>
+#include <camera/Overlay.h>
 #include <camera/CameraHardwareInterface.h>
 #include "MessageQueue.h"
 #include "overlay_common.h"
